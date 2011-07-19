@@ -1,0 +1,31 @@
+grammar com.jda.webworks.config.Config with org.eclipse.xtext.common.Terminals
+
+generate config "http://www.jda.com/webworks/config/Config"
+
+
+Configuration :
+	(categories += Categories)+
+;
+
+enum SCOPE_TYPES :
+	local | global
+;
+
+enum BOOL :
+	true | false
+;
+
+Categories :
+	'Category' name = ID '{'
+		properties += ConfigProperty+
+	'}'
+;
+
+ConfigProperty :
+	'Property ' name = ID '{'
+		'value' value = STRING
+		'descriptionResourceKey' resourceKey = STRING
+		'scope'  scope = SCOPE_TYPES
+		'restartServer' restart = BOOL
+	'}' 
+;
